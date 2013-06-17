@@ -1,0 +1,16 @@
+server <%= node[:dns][:master] %>
+zone zone.domain.com
+
+update     delete     static1.zone.domain.com                       A
+update     delete     static2.zone.domain.com                       A
+
+update     add        static1.zone.domain.com               600     A     192.168.0.253
+update     add        static2.zone.domain.com               600     A     192.168.0.254
+
+update     delete     cname1.zone.domain.com                        CNAME
+update     delete     cname2.zone.domain.com                        CNAME
+
+update     add        cname1.zone.domain.com                600     CNAME static1.zone.domain.com
+update     add        cname2.zone.domain.com                600     CNAME static2.zone.domain.com
+
+send

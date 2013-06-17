@@ -1,0 +1,57 @@
+options {
+  directory "/var/named";
+  pid-file "/var/named/named.pid";
+  session-keyfile "/var/named/session.key";
+  forwarders { 8.8.8.8; 8.8.4.4; };
+  forward first;
+  notify yes;
+  also-notify {
+      <%= node[:dns][:primary_slave] %>;
+      <%= node[:dns][:secondary_slave] %>;
+  };
+  allow-transfer {
+      127.0.0.1/8;
+      10.0.0.0/8;
+      172.16.1.0/12;
+      192.168.0.0/16;
+  };
+  recursion yes;
+  allow-recursion {
+      127.0.0.1/8;
+      10.0.0.0/8;
+      172.16.1.0/12;
+      192.168.0.0/16;
+  };
+};
+
+controls { 
+      inet 0.0.0.0 allow {
+          127.0.0.1/8;
+          10.0.0.0/8;
+          172.16.1.0/12;
+          192.168.0.0/16;
+      };
+};
+
+include "/opt/local/etc/keys.conf";
+
+zone "localhost" {
+        type master;
+        file "localhost.zone";
+};
+
+zone "zone.domain.com" {
+        type master;
+        file "zone.domain.com.zone";
+        allow-update {
+            key domain.com.;
+        };
+};
+
+zone "someotherdomain.com" {
+        type forward;
+        forwarders {
+            172.16.1.10;
+            172.16.1.11;
+        };
+};

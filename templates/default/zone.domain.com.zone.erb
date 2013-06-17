@@ -1,0 +1,15 @@
+$TTL 1h
+$ORIGIN zone.domain.com.
+@                    IN SOA     ns0.zone.domain.com. hostmaster.domain.com. (
+                                1352253845 ; serial, be sure to update this with the latest unix timestamp
+                                5 ; refresh
+                                5 ; retry
+                                4w ; expire
+                                1d ; minimum
+                                )
+
+                        NS      ns0.zone.domain.com.
+                        NS      ns1.zone.domain.com.
+                        NS      ns2.zone.domain.com.
+
+localhost               A       127.0.0.1

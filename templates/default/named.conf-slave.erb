@@ -1,0 +1,55 @@
+options {
+  directory "/var/named";
+  pid-file "/var/named/named.pid";
+  session-keyfile "/var/named/session.key";
+  forwarders { 8.8.8.8; 8.8.4.4; };
+  forward first;
+  notify no;
+  allow-transfer {
+      127.0.0.1/8;
+      10.0.0.0/8;
+      172.16.1.0/12;
+      192.168.0.0/16;
+  };
+  recursion yes;
+  allow-recursion {
+      127.0.0.1/8;
+      10.0.0.0/8;
+      172.16.1.0/12;
+      192.168.0.0/16;
+  };
+};
+
+controls { 
+      inet 0.0.0.0 allow {
+          127.0.0.1/8;
+          10.0.0.0/8;
+          172.16.1.0/12;
+          192.168.0.0/16;
+      };
+};
+
+zone "localhost" {
+        type slave;
+        file "localhost.zone";
+        masters {
+            <%= node[:dns][:master] %>;
+        };
+};
+
+zone "zone.domain.com" {
+        type slave;
+        file "zone.domain.com.zone";
+        masters {
+            <%= node[:dns][:master] %>;
+        };
+};
+
+zone "someotherdomain.com" {
+        type forward;
+        forwarders {
+            172.16.1.10;
+            172.16.1.11;
+        };
+};
+
