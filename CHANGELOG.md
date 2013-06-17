@@ -1,10 +1,10 @@
-# CHANGELOG for dns
+# CHANGELOG for bind
 
-This file is used to list changes made in each version of dns.
+This file is used to list changes made in each version of bind.
 
-## 0.1.0:
+## 0.8.0:
 
-* Initial release of dns
+* Initial release of bind
 
 - - - 
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.

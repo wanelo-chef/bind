@@ -7,8 +7,8 @@ Description
 
 Requirements
 ============
-  To manually edit zone and update files, you have to be in the Platform org.  
-  Client nsupdate stuff just works for anyone.
+Currently only tested on SmartOS.  Should be possible to run with minimal refactoring on other platforms.
+
 
 Attributes
 ==========
